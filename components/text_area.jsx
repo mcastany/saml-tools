@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as Actions from '../actions';
+import * as Actions from '../actions/encoder';
 
 class TextAreaElement extends React.Component {
   handleChange(e){
@@ -15,9 +15,8 @@ class TextAreaElement extends React.Component {
   }
 
   render() {
-    console.log('Marcos', this.props.value)
     return (  
-    <textarea 
+      <textarea 
       style={{width:'100%', height: '300px'}}
       value={this.props.value}
       defaultValue=''
@@ -28,7 +27,7 @@ class TextAreaElement extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    value: state.encoded    
+    value: state.encoder.encoded    
   };
 }
 

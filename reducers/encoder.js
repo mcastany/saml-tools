@@ -29,6 +29,6 @@ export default (state, action) => {
         encoded: action.encoded
       };
     default:
-      return {};
+      return state || {};
   }
 }

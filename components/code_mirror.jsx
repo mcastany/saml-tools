@@ -2,7 +2,7 @@ import CodeMirror from 'CodeMirror'
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as Actions from '../actions';
+import * as Actions from '../actions/encoder';
 import { debounce } from 'lodash';
  
 class CodeMirrorElement extends React.Component {
@@ -41,7 +41,7 @@ class CodeMirrorElement extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    value: state.xml    
+    value: state.encoder.xml    
   };
 }
 
