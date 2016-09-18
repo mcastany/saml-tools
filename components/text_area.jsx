@@ -1,12 +1,9 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as Actions from '../actions/encoder';
 
-class TextAreaElement extends React.Component {
+export default class TextAreaElement extends React.Component {
   handleChange(e){
-    if (this.props.value !== e.target.value){
-      this.props.actions.encoded_changed(e.target.value);
+    if (this.props.value !== e.target.value && this.props.onchange){
+      this.props.onchange(e.target.value);
     }
   }
   
@@ -24,20 +21,3 @@ class TextAreaElement extends React.Component {
       />)
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    value: state.encoder.encoded    
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(Actions, dispatch)
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TextAreaElement);

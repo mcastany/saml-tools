@@ -1,7 +1,6 @@
 export default (state, action) => {
   switch(action.type) {
     case 'XML_CHANGED':
-      // encoded XML and update Encoded
       var encoded = '';
       try{
        encoded = window.btoa(action.xml);
@@ -15,7 +14,6 @@ export default (state, action) => {
       };
       break;
     case 'ENCODED_CHANGE':
-      // Decode content and update XML
       var decoded_data = '';
       try{
        decoded_data = window.atob(action.encoded);

@@ -1,11 +1,7 @@
 import CodeMirror from 'CodeMirror'
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as Actions from '../actions/encoder';
-import { debounce } from 'lodash';
  
-class CodeMirrorElement extends React.Component {
+export default class CodeMirrorElement extends React.Component {
   componentDidMount(){
     this.editor = CodeMirror.fromTextArea(this._input, {  mode: "xml", foldGutter: true, lineNumbers: true });
     this.editor.on('blur', this.handleChange.bind(this, true))
@@ -26,8 +22,8 @@ class CodeMirrorElement extends React.Component {
 
   handleChange(){
     const value = this.editor.getValue();
-    if (this.props.value !== value){
-      this.props.actions.xml_changed(value);
+    if (this.props.value !== value && this.props.onchange){
+      this.props.onchange(value);
     }
   }
 
@@ -35,23 +31,7 @@ class CodeMirrorElement extends React.Component {
     return (  
     <textarea 
       ref={(c) => this._input = c} style={{width:'100%', height: '300px', border: '1px solid black'}}
-      >{this.props.value}</textarea>)
+      value={this.props.value}
+      ></textarea>)
   }
 }
-
-function mapStateToProps(state) {
-  return {
-    value: state.encoder.xml    
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(Actions, dispatch)
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CodeMirrorElement);
