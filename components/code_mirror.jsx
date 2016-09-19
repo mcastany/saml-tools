@@ -1,17 +1,30 @@
 import CodeMirror from 'CodeMirror'
 import React from 'react';
- 
+import vk from 'vkbeautify';
+
 export default class CodeMirrorElement extends React.Component {
   componentDidMount(){
     this.editor = CodeMirror.fromTextArea(this._input, {  mode: "xml", foldGutter: true, lineNumbers: true });
     this.editor.on('blur', this.handleChange.bind(this, true))
-    this.editor.setValue(this.props.value || '');
+    var value = this.props.value;
+    if (this.props.pretty){
+      value = vk.xml(value || '');
+    }
+
+    this.editor.setValue(value || '');
   }
 
   componentWillReceiveProps(nextProps) {
     setTimeout(()=>{
-      if (this.editor && nextProps.value !== undefined && this.editor.getValue() != nextProps.value) {
-        this.editor.setValue(nextProps.value);
+      if (this.editor && nextProps.value !== undefined) {
+        var value = nextProps.value
+        if (this.props.pretty){
+            value = vk.xml(value || '');
+        }
+
+        if(this.editor.getValue() != value){
+          this.editor.setValue(value);
+        }
       }
     }, 0);
 	}

@@ -25,7 +25,7 @@ class Deflator extends React.Component {
         </div>
         <div className="col-md-6">
           <h2 className='title'>Inflated</h2>
-          <CodeMirrorElement value={this.props.inflated} onchange={this.inflatedChange.bind(this)}></CodeMirrorElement>          
+          <CodeMirrorElement pretty={true} value={this.props.inflated} onchange={this.inflatedChange.bind(this)}></CodeMirrorElement>          
         </div>
       </div>
     )

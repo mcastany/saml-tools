@@ -6,7 +6,7 @@ export default (state, action) => {
       var deflated = '';
 
       try {
-        deflated = btoa(pako.deflateRaw(action.inflated, {to : 'string'}));
+        deflated = encodeURIComponent(btoa(pako.deflateRaw(action.inflated, {to : 'string'})));
       } catch (err) {
         console.log(err);
       }
@@ -19,7 +19,7 @@ export default (state, action) => {
       var inflated = '';
 
       try {
-        inflated = pako.inflateRaw(atob(action.deflated), {to : 'string'});
+        inflated = pako.inflateRaw(atob(decodeURIComponent(action.deflated)), {to : 'string'});
       } catch (err) {
         console.log(err);
       }
