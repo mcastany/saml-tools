@@ -1,32 +1,11 @@
-import pako from 'pako';
+import Service from '../services';
 
 export default (state, action) => {
   switch(action.type) {
     case 'INFLATED_CHANGED':
-      var deflated = '';
-
-      try {
-        deflated = encodeURIComponent(btoa(pako.deflateRaw(action.inflated, {to : 'string'})));
-      } catch (err) {
-        console.log(err);
-      }
-
-      return {
-        inflated: action.inflated,
-        deflated: deflated
-      };
+      return Object.assign({}, state, (new Service()).deflate(action.inflated));
     case 'DEFLATED_CHANGED':
-      var inflated = '';
-
-      try {
-        inflated = pako.inflateRaw(atob(decodeURIComponent(action.deflated)), {to : 'string'});
-      } catch (err) {
-        console.log(err);
-      }
-      return {
-        inflated: inflated,
-        deflated: action.deflated
-      };
+      return Object.assign({}, state, (new Service()).inflate(action.deflated));
     default:
       return state || {};
   }

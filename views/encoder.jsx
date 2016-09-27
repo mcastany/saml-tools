@@ -25,7 +25,7 @@ class Encoder extends React.Component {
         </div>
         <div className="col-md-6">
           <h2 className='title'>Decoded</h2>
-          <CodeMirrorElement value={this.props.xml} onchange={this.xmlChange.bind(this)}></CodeMirrorElement>          
+          <CodeMirrorElement pretty={true} value={this.props.xml} onchange={this.xmlChange.bind(this)}></CodeMirrorElement>          
         </div>
       </div>
     )

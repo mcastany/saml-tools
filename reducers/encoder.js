@@ -1,31 +1,11 @@
+import Service from '../services';
+
 export default (state, action) => {
   switch(action.type) {
     case 'XML_CHANGED':
-      var encoded = '';
-      try{
-       encoded = window.btoa(action.xml);
-      } catch(e){
-        console.log(e);
-        encoded = ''
-      }
-      return {
-        xml: action.xml,
-        encoded: encoded
-      };
-      break;
+      return Object.assign({}, state, (new Service()).encode(action.xml));
     case 'ENCODED_CHANGE':
-      var decoded_data = '';
-      try{
-       decoded_data = window.atob(action.encoded);
-      } catch(e){
-        console.log(e);
-        decoded_data = ''
-      }
-
-      return {
-        xml: decoded_data,
-        encoded: action.encoded
-      };
+      return Object.assign({}, state, (new Service()).decode(action.encoded));
     default:
       return state || {};
   }
